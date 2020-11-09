@@ -1,6 +1,6 @@
 interface EntityRepository<Entity> {
   save(entity: Entity): Promise<Entity>;
-  find(id: string): Promise<Entity>;
+  findOne(id: string): Promise<Entity | undefined>;
   findAll(): Promise<Entity[]>;
 }
 
