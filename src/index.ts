@@ -1,6 +1,5 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { Sequelize, Dialect } from 'sequelize';
 
 // Configuration
 dotenv.config();
@@ -15,17 +14,6 @@ export const {
   DATABASE_PORT, 
   DATABASE_DIALECT 
 } = process.env;
-
-const sequelize = new Sequelize(
-  DATABASE_NAME as string, 
-  DATABASE_USER_NAME as string, 
-  DATABASE_PASSWORD as string, 
-  {
-    host: DATABASE_HOTS,
-    port: Number.parseInt(DATABASE_PORT as string),
-    dialect: DATABASE_DIALECT as Dialect
-  }
-);
 
 app.listen(PORT, () => {});
 
