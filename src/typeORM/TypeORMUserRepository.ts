@@ -1,7 +1,6 @@
-import { EntitySchema, Repository } from 'typeorm';
+import { EntitySchema, Repository, getRepository } from 'typeorm';
 import UserRepository from '../repository/UserRepository';
 import UserEntity from '../entity/UserEntity';
-import TypeORMConnection from './TypeORMConnection';
 
 const TypeORMUserEntitySchema = new EntitySchema<UserEntity>({
   name: 'user',
@@ -29,7 +28,7 @@ class TypeORMUserRepository implements UserRepository {
   private repository: Repository<UserEntity>;
 
   constructor() {
-    this.repository = TypeORMConnection.Instance.getRepository(TypeORMUserEntitySchema);
+    this.repository = getRepository(TypeORMUserEntitySchema);
   }
 
   save(entity: UserEntity): Promise<UserEntity> {
