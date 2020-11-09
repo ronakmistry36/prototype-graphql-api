@@ -1,8 +1,8 @@
-interface User {
+interface UserEntity {
   id: string;
   email: string;
   firstName: string;
   lastName: string;
 }
 
-export default User;
+export default UserEntity;
