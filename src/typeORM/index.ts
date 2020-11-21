@@ -1,6 +1,7 @@
 import { ConnectionManager } from 'typeorm';
 
 const connectionManager = new ConnectionManager();
+//TODO:: USE env variables
 const connection = connectionManager.create({
   type: "mysql",
   host: "localhost",

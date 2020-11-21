@@ -1,8 +1,5 @@
-interface UserEntity {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-}
+import User from '../domain/User';
+
+interface UserEntity extends User {}
 
 export default UserEntity;

@@ -1,7 +1,5 @@
-interface CommentEntity {
-  id: string;
-  content: string;
-  createdAt: Date;
-}
+import Comment from '../domain/Comment';
+
+interface CommentEntity extends Comment {}
 
 export default CommentEntity;
