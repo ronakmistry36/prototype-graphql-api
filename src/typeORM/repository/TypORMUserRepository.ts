@@ -1,7 +1,6 @@
-import UserRepository from '../../repository/UserRepository';
+import {getConnection} from "typeorm";
+import UserEntity from "../entity/UserEntity";
 
-interface TypORMUserRepository extends UserRepository {
-
-}
+const TypORMUserRepository = getConnection().getRepository(UserEntity);
 
 export default TypORMUserRepository;
