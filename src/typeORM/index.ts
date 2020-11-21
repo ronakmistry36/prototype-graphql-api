@@ -13,8 +13,10 @@ const connection = connectionManager.create({
 const triggerConnection = async () => {
   try {
     await connection.connect();
+    console.log("Mysql database connected successfully....");
   } catch (error) {
     console.log(error);
+    console.log("Error while connecting with mysql database", error);
   }
 };
 
