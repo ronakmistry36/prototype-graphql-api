@@ -1,0 +1,13 @@
+{
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3399,
+  "username": "root",
+  "password": "password",
+  "database": "prototype-graphql",
+  "synchronize": true,
+  "logging": false,
+  "entities": [
+    "typeORM/repository/*.ts"
+  ]
+}

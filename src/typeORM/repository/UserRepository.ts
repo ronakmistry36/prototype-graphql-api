@@ -1,7 +1,7 @@
-import {EntitySchema, getRepository} from 'typeorm';
+import {EntitySchema} from 'typeorm';
 import User from '../../domain/User';
 
-const UserEntity = new EntitySchema<User>({
+export const UserEntity = new EntitySchema<User>({
   name: 'user',
   columns: {
     id: {
@@ -24,5 +24,3 @@ const UserEntity = new EntitySchema<User>({
     }
   }
 });
-
-export default getRepository<User>(UserEntity)
