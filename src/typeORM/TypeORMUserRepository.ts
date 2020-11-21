@@ -2,23 +2,23 @@ import { EntitySchema, Repository, getRepository } from 'typeorm';
 import UserRepository from '../repository/UserRepository';
 import UserEntity from '../entity/UserEntity';
 
-const TypeORMUserEntitySchema = new EntitySchema<UserEntity>({
+export const TypeORMUserEntitySchema = new EntitySchema<UserEntity>({
   name: 'user',
   columns: {
     id: {
-      type: String,
+      type: string,
       primary: true,
     },
     email: {
-      type: String,
+      type: string,
       nullable: false,
     },
     firstName: {
-      type: String,
+      type: string,
       nullable: false,
     },
     lastName: {
-      type: String,
+      type: string,
       nullable: false,
     },
   },
@@ -44,4 +44,4 @@ class TypeORMUserRepository implements UserRepository {
   }
 }
 
-export default TypeORMUserRepository;
+export default TypeORMUserEntitySchema;
