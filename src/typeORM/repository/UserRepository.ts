@@ -1,4 +1,4 @@
-import { EntitySchema } from 'typeorm';
+import {EntitySchema, getRepository} from 'typeorm';
 import User from '../../domain/User';
 
 const UserEntity = new EntitySchema<User>({
@@ -25,5 +25,4 @@ const UserEntity = new EntitySchema<User>({
   }
 });
 
-
-export default UserEntity;
+export default getRepository<User>(UserEntity)
