@@ -1,5 +1,29 @@
+import { EntitySchema } from 'typeorm';
 import User from '../domain/User';
 
-interface UserEntity extends User {}
+const UserEntity = new EntitySchema<User>({
+  name: 'user',
+  columns: {
+    id: {
+      type: String,
+      primary: true,
+      generated: true
+    },
+    email: {
+      type: String,
+      unique: true,
+      nullable: false
+    },
+    firstName: {
+      type: String,
+      nullable: false
+    },
+    lastName: {
+      type: String,
+      nullable: false
+    }
+  }
+});
+
 
 export default UserEntity;
