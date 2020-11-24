@@ -1,8 +1,11 @@
 import express from 'express';
+// @ts-ignore
 import dotenv from 'dotenv';
 import "reflect-metadata";
-import {ApolloServer} from "apollo-server-express";
-import schema from './schema';
+import {ApolloServer} from 'apollo-server';
+import {createConnection} from "typeorm";
+import {buildSchema} from "type-graphql";
+import {UserResolver} from "./graphQl/UserResolver";
 
 
 dotenv.config();
@@ -11,15 +14,12 @@ app.use(express.json());
 
 const { PORT } = process.env;
 
-const apolloServer = new ApolloServer({ schema });
+const initializeApp = async () => {
+  const connection = await createConnection();
+  const schema = await buildSchema({ resolvers: [ UserResolver ]});
+  const apolloServer = new ApolloServer({ schema });
+  await apolloServer.listen(PORT);
+  console.log("App is running on port::", PORT);
+};
 
-apolloServer.applyMiddleware({ app, path: '/graphql' });
-
-app.listen(PORT, async() => {
-  console.log("App is running on port::", PORT)
-});
-
-app.get('/',  (request, response) => {
-  response.send('HMW - Backend');
-});
-
+initializeApp();
