@@ -1,8 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { ApolloServer } from "apollo-server-express";
 import "reflect-metadata";
-import { buildSchema } from "type-graphql";
+import {ApolloServer} from "apollo-server-express";
+import schema from './schema';
 
 
 dotenv.config();
@@ -11,8 +11,9 @@ app.use(express.json());
 
 const { PORT } = process.env;
 
+const apolloServer = new ApolloServer({ schema });
 
-
+apolloServer.applyMiddleware({ app, path: '/graphql' });
 
 app.listen(PORT, async() => {
   console.log("App is running on port::", PORT)
@@ -21,3 +22,4 @@ app.listen(PORT, async() => {
 app.get('/',  (request, response) => {
   response.send('HMW - Backend');
 });
+
