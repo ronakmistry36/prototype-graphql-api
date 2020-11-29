@@ -3,7 +3,7 @@ interface EntityRepository<Entity> {
   exists(id: string): Promise<boolean>;
   findAll(): Promise<Entity[]>;
   findById(id: string): Promise<Entity>;
-  save(entity: Entity): void;
+  save(entity: Entity): Promise<Entity>;
 }
 
 export default EntityRepository;

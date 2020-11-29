@@ -18,58 +18,59 @@ abstract class TypeORMAbstractRepository<Entity> implements EntityRepository<Ent
     return this._repository;
   }
 
-  public save(entity: Entity): void {
-    this.repositoryInstance()
-      .then((repository) => repository.save(entity))
-      .catch((error) => console.log("Error while saving entity", error));
+  async delete(id: string): Promise<void> {
+    const repository = await this.repositoryInstance();
+    try {
+      await repository.delete(id);
+      return Promise.resolve();
+    } catch (error) {
+      console.log("Error while deleting entity", error)
+      return Promise.reject(error);
+    }
   }
 
-  delete(id: string): void {
-    this.repositoryInstance()
-      .then((repository) => repository.delete(id))
-      .catch((error) => console.log("Error while saving entity", error));
+  async exists(id: string): Promise<boolean> {
+    const repository = await this.repositoryInstance();
+    try {
+      await repository.findOneOrFail(id);
+      return Promise.resolve(true);
+    } catch (error) {
+      console.log("Error while finding entity", error)
+      return Promise.reject(false);
+    }
   }
 
-  exists(id: string): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      this.repositoryInstance()
-        .then(async (repository) => {
-          const entity = await repository.findOne(id);
-          resolve(entity !== undefined);
-        })
-        .catch((error) => {
-          console.log("Error while finding entity", error)
-          reject(error);
-        })
-    });
+  async findAll(): Promise<Entity[]> {
+    const repository = await this.repositoryInstance();
+    try {
+      const entities = await repository.find();
+      return Promise.resolve(entities);
+    } catch (error) {
+      console.log("Error while finding entity", error)
+      return Promise.reject(error);
+    }
   }
 
-  findAll(): Promise<Entity[]> {
-    return new Promise<Entity[]>((resolve, reject) => {
-      this.repositoryInstance()
-        .then(async (repository) => {
-          const entities = await repository.find();
-          resolve(entities);
-        })
-        .catch((error) => {
-          console.log("Error while finding entities", error)
-          reject(error);
-        })
-    });
+  async findById(id: string): Promise<Entity> {
+    const repository = await this.repositoryInstance();
+    try {
+      const entity = await repository.findOneOrFail(id);
+      return Promise.resolve(entity);
+    } catch (error) {
+      console.log("Error while finding entity", error)
+      return Promise.reject(error);
+    }
   }
 
-  findById(id: string): Promise<Entity> {
-    return new Promise<Entity>((resolve, reject) => {
-      this.repositoryInstance()
-        .then(async (repository) => {
-          const entity = await repository.findOneOrFail(id);
-          resolve(entity);
-        })
-        .catch((error) => {
-          console.log("Error while finding entity", error)
-          reject(error);
-        })
-    });
+  async save(entity: Entity): Promise<Entity> {
+    const repository = await this.repositoryInstance();
+    try {
+      const savedEntity = await repository.save(entity);
+      return Promise.resolve(savedEntity);
+    } catch (error) {
+      console.log("Error while saving entity", error)
+      return Promise.reject(error);
+    }
   }
 }
 
