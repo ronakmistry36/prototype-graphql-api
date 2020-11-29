@@ -1,6 +1,6 @@
-import { IResolvers } from 'graphql-tools';
+import {QueryResolvers} from "./graphql";
 
-const resolvers: IResolvers = {
+const resolvers: QueryResolvers = {
   Query: {
     greeting: () => "Hello World.."
   }
