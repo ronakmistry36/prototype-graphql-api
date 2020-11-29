@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -10,11 +10,21 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
+};
+
+
+export type Project = {
+  __typename?: 'Project';
+  id: Scalars['String'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  createdAt?: Maybe<Scalars['Date']>;
 };
 
 export type Query = {
   __typename?: 'Query';
-  greeting: Scalars['String'];
+  projects: Array<Project>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -96,23 +106,41 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  Query: ResolverTypeWrapper<{}>;
+  Date: ResolverTypeWrapper<Scalars['Date']>;
+  Project: ResolverTypeWrapper<Project>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  Query: {};
+  Date: Scalars['Date'];
+  Project: Project;
   String: Scalars['String'];
+  Query: {};
   Boolean: Scalars['Boolean'];
 }>;
 
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date';
+}
+
+export type ProjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  greeting?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  projects?: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
+  Date?: GraphQLScalarType;
+  Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 }>;
 
