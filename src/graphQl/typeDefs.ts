@@ -12,6 +12,7 @@ const typeDefs = gql`
   }
   
   type Query {
+    project(id: String!): Project!
     projects: [Project!]!
   }
 `;
