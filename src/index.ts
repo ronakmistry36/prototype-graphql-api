@@ -14,10 +14,6 @@ app.listen(PORT,   async () => {
 
 app.get('/', async (_request, response) => {
   const projectRepository = new ProjectRepository();
-  await projectRepository.save({
-    title: "Sample value test 1001",
-    description: "Sample description #############",
-    createdAt: new Date()
-  });
-  response.send('Welcome');
+  const projects = await projectRepository.findAll();
+  response.send(projects);
 });
