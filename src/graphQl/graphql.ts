@@ -23,6 +23,11 @@ export type Project = {
   createdAt?: Maybe<Scalars['Date']>;
 };
 
+export type CreateProject = {
+  title: Scalars['String'];
+  description: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   project: Project;
@@ -32,6 +37,16 @@ export type Query = {
 
 export type QueryProjectArgs = {
   id: Scalars['String'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  createProject: Project;
+};
+
+
+export type MutationCreateProjectArgs = {
+  input: CreateProject;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -116,7 +131,9 @@ export type ResolversTypes = ResolversObject<{
   Date: ResolverTypeWrapper<Scalars['Date']>;
   Project: ResolverTypeWrapper<Project>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  CreateProject: CreateProject;
   Query: ResolverTypeWrapper<{}>;
+  Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
 
@@ -125,7 +142,9 @@ export type ResolversParentTypes = ResolversObject<{
   Date: Scalars['Date'];
   Project: Project;
   String: Scalars['String'];
+  CreateProject: CreateProject;
   Query: {};
+  Mutation: {};
   Boolean: Scalars['Boolean'];
 }>;
 
@@ -146,10 +165,15 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   projects?: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>;
 }>;
 
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  createProject?: Resolver<ResolversTypes['Project'], ParentType, ContextType, RequireFields<MutationCreateProjectArgs, 'input'>>;
+}>;
+
 export type Resolvers<ContextType = any> = ResolversObject<{
   Date?: GraphQLScalarType;
   Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
 }>;
 
 

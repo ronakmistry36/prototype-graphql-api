@@ -1,5 +1,6 @@
 import {EntitySchema, getConnection, Repository} from "typeorm";
 import EntityRepository from "./EntityRepository";
+import { v4 as UUID } from 'uuid';
 
 abstract class TypeORMAbstractRepository<Entity> implements EntityRepository<Entity> {
 
@@ -65,7 +66,8 @@ abstract class TypeORMAbstractRepository<Entity> implements EntityRepository<Ent
   async save(entity: Entity): Promise<Entity> {
     const repository = await this.repositoryInstance();
     try {
-      const savedEntity = await repository.save(entity);
+
+      const savedEntity = await repository.save(entity['id'] ? entity : { id: UUID(), ...entity});
       return Promise.resolve(savedEntity);
     } catch (error) {
       console.log("Error while saving entity", error)

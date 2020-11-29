@@ -6,8 +6,7 @@ const ProjectEntity: EntitySchema = new EntitySchema<Project>({
   columns: {
     id: {
       type: String,
-      primary: true,
-      generated: "uuid"
+      primary: true
     },
     title: {
       type: String,
